@@ -12,6 +12,8 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zk-1:13888:14888;zk-2:23888:24888;zk-3:33888:34888
+    networks:
+      - proxy
 
   zk-2:
     image: confluentinc/cp-zookeeper:latest
@@ -25,6 +27,8 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zk-1:13888:14888;zk-2:23888:24888;zk-3:33888:34888
+    networks:
+      - proxy
 
   zk-3:
     image: confluentinc/cp-zookeeper:latest
@@ -38,6 +42,8 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zk-1:13888:14888;zk-2:23888:24888;zk-3:33888:34888
+    networks:
+      - proxy
 
   kfk-1:
     image: confluentinc/cp-kafka:latest
@@ -52,6 +58,8 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zk-1:13181,zk-2:13181,zk-3:13181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kfk-1:20092
+    networks:
+      - proxy
  
   kfk-2:
     image: confluentinc/cp-kafka:latest
@@ -66,6 +74,8 @@ services:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: zk-1:13181,zk-2:13181,zk-3:13181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kfk-2:30092
+    networks:
+      - proxy
  
   kfk-3:
     image: confluentinc/cp-kafka:latest
@@ -80,3 +90,9 @@ services:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: zk-1:13181,zk-2:13181,zk-3:13181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kfk-3:40092
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    driver: bridge
